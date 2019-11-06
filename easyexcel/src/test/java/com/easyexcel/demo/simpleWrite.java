@@ -4,10 +4,19 @@ package com.easyexcel.demo;/**
  */
 
 import com.alibaba.excel.EasyExcel;
+import com.alibaba.excel.ExcelWriter;
+import com.alibaba.excel.annotation.ExcelProperty;
+import com.alibaba.excel.write.builder.ExcelWriterBuilder;
+import com.alibaba.excel.write.builder.ExcelWriterSheetBuilder;
+import com.alibaba.excel.write.metadata.WriteSheet;
+import com.easyexcel.demo.dao.ComplexHeadData;
+import com.easyexcel.demo.dao.ConverterData;
 import com.easyexcel.demo.dao.DemoData;
+import com.easyexcel.demo.listener.DemoDataListener;
 import com.easyexcel.demo.util.TestFileUtil;
 import org.junit.Test;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -38,6 +47,28 @@ public class simpleWrite extends DemoApplicationTests {
             list.add(data);
         }
         return list;
+    }
+
+    @Test
+    public void complexHeadWrite(){
+        String fileName = TestFileUtil.getPath()+"simpleWrite"+System.currentTimeMillis()+".xlsx";
+        EasyExcel.write(fileName, ComplexHeadData.class).sheet("复杂头").doWrite(data());
+
+    }
+
+    @Test
+    public void converterWrite(){
+        String fileName = TestFileUtil.getPath()+"simpleWrite"+System.currentTimeMillis()+".xlsx";
+        EasyExcel.write(fileName, ConverterData.class).sheet("格式转换").doWrite(data());
+    }
+
+    @Test
+    public void simpleRead(){
+        // 写法1：
+        String fileName = TestFileUtil.getPath() + File.separator + "simpleWrite1569827408968.xlsx";
+        // 这里 需要指定读用哪个class去读，然后读取第一个sheet 文件流会自动关闭
+        EasyExcel.read(fileName, DemoData.class, new DemoDataListener()).sheet().doRead();
+
     }
 
 

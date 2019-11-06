@@ -10,15 +10,23 @@ import javax.annotation.sql.DataSourceDefinition;
 import java.util.Date;
 
 /**
+ * 简单的写
  *@author:liuze
  *@createDate:2019/9/30
  */
 @Data
 public class DemoData {
-    @ExcelProperty("标题")
+    @ExcelProperty("pin")
     private String string;
-    @ExcelProperty("日期")
-    private Date date;
-    @ExcelProperty("数字")
-    private Double doubleData;
+
+    String s = "" ;
+
+
+
+
+
+
+
+
+
 }
